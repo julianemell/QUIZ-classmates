@@ -183,9 +183,16 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-const alphabet=["a","b","c","d","e"];
-console.log(shuffleArray(alphabet)); 
+/* const alphabet=["a","b","c","d","e"];
+console.log(shuffleArray(alphabet));  */
 
+document.querySelectorAll('.button').forEach(classmatechoices => {
+	classmatechoices.addEventListener('click', e => {
+		if (e.target.tagName === "BUTTON") {
+			console.log("button");
+		}
+	});
+});
 
 /*
 const form = document.querySelector(".quiz-form");
