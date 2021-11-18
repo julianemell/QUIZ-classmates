@@ -1,5 +1,6 @@
 //	QUIZ-SPEL! Gissa namnet!
 
+// Array av classmates med namn och img
 const classmates = [
 	{
 		"name" : "Adi Dzocaj",
@@ -161,17 +162,14 @@ const classmates = [
 
 
 
+// Plocka ut en random img från classmates array och placera i img src(html)
+
 const classmateImg = document.getElementById("classmateImg");
+let classmate = Math.floor(Math.random() * classmates.length);
+classmateImg.setAttribute('src', classmates[classmate].image);
+console.log(classmate);
 
-//PICK OUT RANDOM IMG AND PLACE IN IMG SRC
-function chose() {
-    let classmate = Math.floor(Math.random() * classmates.length);
-    classmateImg.setAttribute('src', classmates[classmate].image);
-    
-    console.log(classmate);
-}
 
-chose();
 
 //Fisher-Yates algorith för att blanda classmates array
 const shuffleArray = (classmates) => {
@@ -187,7 +185,28 @@ shuffleArray(classmates);
 console.log("classmates after shuffle", classmates);
 
 
-//om man clickar på en button så...
+// plocka ut tre random namn
+const threeClassmates = classmates.slice(0, 3);
+//console.log(threeClassmates);
+
+// skapa en array med 3 random namn
+const threeClassmatesNames = threeClassmates.map(classmates => classmates.name);
+console.log(threeClassmatesNames);
+
+// pusha in namnet som är kopplat till random img
+threeClassmatesNames.push(classmates[classmate].name);
+
+//shuffla array och placera ut namn på knapparna
+
+
+
+//om man klickar på en knapp så...
+//klickar man på rätt namn så ska 10% adderas på resultatet
+//klickar man på fel så händer inget med resultatet
+//när man klickar (kvittar rätt eller fel) så går man över till nästa bild
+//efter 10 bilder så ska resultatet visas
+//ev knapp för att starta om spelet.
+
 document.querySelectorAll('.button').forEach(classmatechoices => {
 	classmatechoices.addEventListener('click', e => {
 		if (e.target.tagName === "BUTTON") {
