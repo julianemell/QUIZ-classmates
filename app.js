@@ -1,4 +1,4 @@
-
+//	QUIZ-SPEL! Gissa namnet!
 
 const classmates = [
 	{
@@ -173,19 +173,21 @@ function chose() {
 
 chose();
 
-/* function alternativ() {
-    let randomNumberName = Math.floor(Math.random() * classmates.length);
-    const 
-} */
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+//Fisher-Yates algorith för att blanda classmates array
+const shuffleArray = (classmates) => {
+    for (let i = classmates.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = classmates[i];
+      classmates[i] = classmates[j];
+      classmates[j] = temp;
     }
 }
-/* const alphabet=["a","b","c","d","e"];
-console.log(shuffleArray(alphabet));  */
 
+shuffleArray(classmates);
+console.log("classmates after shuffle", classmates);
+
+
+//om man clickar på en button så...
 document.querySelectorAll('.button').forEach(classmatechoices => {
 	classmatechoices.addEventListener('click', e => {
 		if (e.target.tagName === "BUTTON") {
@@ -194,16 +196,6 @@ document.querySelectorAll('.button').forEach(classmatechoices => {
 	});
 });
 
-/*
-const form = document.querySelector(".quiz-form");
-
-form.addEventListener('submit', e => {
-    e.preventDefault();
-
-    let score = 0;
-    const userAnswers = [form]
-});
- */
 
 
 //ändra class i resultat till display-block(?)
