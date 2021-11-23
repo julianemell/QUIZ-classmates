@@ -161,38 +161,38 @@ const classmates = [
 ];
 
 const form = document.querySelector('.quizform');
+const userResult = document.querySelector('.user-result');
+
 
 // Plocka ut en random img från classmates array och placera i img src(html)
-const classmateImg = document.getElementById("classmateImg");
+const classmateImg = document.querySelector("#classmateImg");
 let classmate = Math.floor(Math.random() * classmates.length);
 
 
+classmateImg.setAttribute('src', classmates[classmate].image);
+console.log(classmate);
+
+//plocka ut namnet till classmateImg
+const classmateIndex = classmates[classmate];
+console.log(classmateIndex);
+let randomClassmateCorrect = classmateIndex.name;
+console.log(randomClassmateCorrect);
+
+//Fisher-Yates algorith för att blanda classmates array
+const shuffleArray = (array) => {
+	for (let i = array.length - 1; i > 0; i--) {
+	const j = Math.floor(Math.random() * (i + 1));
+	const temp = array[i];
+	array[i] = array[j];
+	array[j] = temp;
+	}
+}
+shuffleArray(classmates);
+//console.log("classmates after shuffle", classmates);
+
 //lägger detta i en funktion för att senare kunna kalla på den när man klickar på ett svarsalternativ
 const loadQuestion = () => {
-	classmateImg.setAttribute('src', classmates[classmate].image);
-	console.log(classmate);
-
-	//plocka ut namnet till classmateImg
-	const classmateIndex = classmates[classmate];
-	console.log(classmateIndex);
-	let randomClassmateCorrect = classmateIndex.name;
-	console.log(randomClassmateCorrect);
-
-	//Fisher-Yates algorith för att blanda classmates array
-	const shuffleArray = (array) => {
-		for (let i = array.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		const temp = array[i];
-		array[i] = array[j];
-		array[j] = temp;
-		}
-	}
-
-	shuffleArray(classmates);
-	console.log("classmates after shuffle", classmates);
-
-
-
+	
 	// plocka ut tre random namn
 	const threeClassmates = classmates.slice(0, 3);
 	//console.log(threeClassmates);
@@ -200,10 +200,10 @@ const loadQuestion = () => {
 	// skapa en array med 3 random namn och det rätta namnet (4 tot)
 	const fourClassmatesNames = threeClassmates.map(classmates => classmates.name);
 	fourClassmatesNames.push(randomClassmateCorrect);
-	console.log(fourClassmatesNames);
+	//console.log(fourClassmatesNames);
 
 	shuffleArray(fourClassmatesNames);
-	console.log("four classmates after shuffle", fourClassmatesNames);
+	//console.log("four classmates after shuffle", fourClassmatesNames);
 
 
 	//loopa array och placera ut namn på knapparna
@@ -229,32 +229,45 @@ loadQuestion();
 
 
 
-const userResult = document.querySelector('.user-result');
 let score = 0;
+let questionNum = 0;
+let quizQuestions = document.querySelector('.quiz-container');
 
 //kolla om det är rätt eller fel namn
 
 //lägg till en function som gör att när vi klickar så visas nästa fråga 
 //on click så laddas nytt foto och namn upp
 
-document.querySelectorAll('.button').forEach(el => el.addEventListener('click', e => {
-	//e.preventDefault();
-
+document.querySelectorAll('.classmate-choice').forEach(el => el.addEventListener('click', e => {
+	e.preventDefault();
+	form.innerHTML = '';
+	
 	let answer = e.target.innerText; //plockar ut namnet som man trycker på
 	console.log(answer);
-
-	if (answer === randomClassmateCorrect) {
+	
+	//vi vill köra 10 frågor och sedan visa resultatet
+	questionNum++;
+	
+	if (e.target.tagName === "BUTTON" && answer === randomClassmateCorrect) {
 		//10% adderas på resultatet
 		score += 10;
-	}
+		
+	} else if (e.target.tagName != "BUTTON") {
+		return false;
 
-	userResult.innerText += `${score}%`;
-	loadQuestion();
+	} else if (e.target.tagName === "BUTTON" && questionNum === 10) {
+		userResult.classList.remove('d-none');
+		quizQuestions.classList.add('d-none');
+
+	} else if (e.target.tagName === "BUTTON" && answer != randomClassmateCorrect) {
+		loadQuestion();
+	}
 	
+	userResult.innerText = `${score}%`;
+	//loadQuestion();
+
+	console.log(questionNum);
 }));
 
-
-
-//ändra class i resultat till display-block(?) .user-result
 
 
