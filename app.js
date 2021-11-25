@@ -170,55 +170,51 @@ const shuffleArray = (array) => {
 	}
 }
 
-shuffleArray(classmates);
 //console.log("classmates after shuffle", classmates);
 
 const form = document.querySelector('.quizform');
-const userResult = document.querySelector('.user-result');
 const classmateImg = document.querySelector("#classmateImg");
+let correctClassmateName = "";
 
-// plocka ut fyra random namn
-const classmateAlternatives = classmates.slice(0, 4);
-console.log(classmateAlternatives);
 
-// Plocka ut en classmate på index 0 från classmateAlternatives array och placera i img src(html)
-let correctClassmate = classmateAlternatives[0];
-classmateImg.setAttribute('src', correctClassmate.image);
 
 
 //lägger detta i en funktion för att senare kunna kalla på den när man klickar på ett svarsalternativ
 const loadQuestion = () => {
+	//blanda array med classmates
+	shuffleArray(classmates);
+
+	// plocka ut fyra random namn
+	let classmateAlternatives = classmates.slice(0, 4);
+
+	// Plocka ut en classmate på index 0 från classmateAlternatives array och placera i img src(html)
+	let correctClassmate = classmateAlternatives[0];
+	classmateImg.setAttribute('src', correctClassmate.image);
 	
-	// skapa en array med 3 random namn och det rätta namnet (4 tot)
-	const classmateAlternativesNames = classmateAlternatives.map(classmates => classmates.name);
-	//classmateAlternatives.push(randomClassmateCorrect);
-	//console.log(fourClassmatesNames);
-
+	//plocka ut namn från object correct classmate
+	correctClassmateName = correctClassmate.name;
+	
+	//plocka ut namn från object classmateAlternativesNames
+	let classmateAlternativesNames = classmateAlternatives.map(classmates => classmates.name);
+	
+	//blanda classmateAlternativesNames
 	shuffleArray(classmateAlternativesNames);
-	//console.log("four classmates after shuffle", fourClassmatesNames);
-
-
-	//loopa array och placera ut namn på knapparna
+	
+	//loopa över classmateAlternativesNames och placera ut buttons
 	let numClassmates = classmateAlternativesNames.length;
+	
 	for (let i = 0; i < numClassmates; i++) {
 		let button = `
 				<div class="button">
-					<button class="classmate-choice btn btn-primary p-2 px-4" id="classmate">${classmateAlternativesNames[i]}</button>
+				<button class="classmate-choice btn btn-primary p-2 px-4">${classmateAlternativesNames[i]}</button>
 				</div>
-			`;
-
+				`;
+				
 		form.innerHTML += button;
+			
 	}
+	answerClick();
 }
-
-loadQuestion();
-
-//klickar man på rätt namn så ska 10% adderas på resultatet
-//klickar man på fel så händer inget med resultatet
-//när man klickar (kvittar rätt eller fel) så går man över till nästa bild - loop pausas
-//efter 10 bilder så ska resultatet visas
-//ev knapp för att starta om spelet.
-
 
 
 let score = 0;
@@ -230,36 +226,89 @@ let quizQuestions = document.querySelector('.quiz-container');
 //lägg till en function som gör att när vi klickar så visas nästa fråga 
 //on click så laddas nytt foto och namn upp
 
-document.querySelectorAll('.classmate-choice').forEach(el => el.addEventListener('click', e => {
-	e.preventDefault();
-	form.innerHTML = '';
+let userResult = document.querySelector('.user-result');
+
+let correctAnswersArray = [];
+let wrongAnswerArray = [];
+
+const answerClick = () => {
+	let answerEl = document.querySelectorAll('.classmate-choice');
 	
-	let answer = e.target.innerText; //plockar ut namnet som man trycker på
-	console.log(answer);
+	answerEl.forEach(answer => {
+		answer.addEventListener('click', e => {
+
+			questionNum++;
+			form.innerHTML = '';
+			
+			let answer = e.target.innerText;
+			//console.log(answer);
+			
+			if (answer === correctClassmateName) {
+				//10% adderas på resultatet
+				score += 10;
+				console.log("same as correct classmate", answer);
+			} else if (answer != correctClassmateName) {
+				score += 0;
+				console.log("wrong classmate, it should be:", answer);
+			}
+			userResult.innerText = `${score}%`;
+			console.log(userResult.innerText = `${score}%`);
+			console.log(questionNum);
+
+			loadQuestion();
+
+			if (questionNum === 10) {
+				endOfGame();
+			}
+		});
+});
+}
+
+loadQuestion();
+
+let resultShow = document.querySelector('#result');
+const endOfGame = () => {
+	resultShow.classList.remove('d-none');
+	quizQuestions.classList.add('d-none');
+	//loadQuestion();
+}
+
+let restartGameEl = document.querySelector('#restart-game');
+
+restartGameEl.addEventListener('click', () => {
+	resultShow.classList.add('d-none');
+	quizQuestions.classList.remove('d-none');
+	loadQuestion();
+	//console.log("testing");
+});
+
+
+/* 
+	
 	
 	//vi vill köra 10 frågor och sedan visa resultatet
-	questionNum++;
+	//questionNum++;
 	
-	if (e.target.tagName === "BUTTON" && answer === randomClassmateCorrect) {
+	if (e.target.innerHTML === correctClassmate) {
 		//10% adderas på resultatet
 		score += 10;
+		correctAnswersArray.push(answer);
 		
-	} else if (e.target.tagName != "BUTTON") {
-		return false;
-
+	} else if (e.target.innerHTML != correctClassmate) {
+		score += 0;
+		wrongAnswerArray.push(answer);
+		
 	} else if (e.target.tagName === "BUTTON" && questionNum === 10) {
 		userResult.classList.remove('d-none');
 		quizQuestions.classList.add('d-none');
+	}
 
-	} else if (e.target.tagName === "BUTTON" && answer != randomClassmateCorrect) {
-		loadQuestion();
+		
+	if (e.target.tagName != "BUTTON") {
+		return false;
 	}
 	
-	userResult.innerText = `${score}%`;
-	//loadQuestion();
-
+	loadQuestion();
+	
 	console.log(questionNum);
-}));
-
-
-
+*/
