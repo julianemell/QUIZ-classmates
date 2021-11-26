@@ -200,8 +200,8 @@ const loadQuestion = () => {
 	
 	for (let i = 0; i < numClassmates; i++) {
 		let button = `
-				<div class="button col-10 my-2">
-					<button class="classmate-choice btn btn-primary p-2 px-4 ">${classmateAlternativesNames[i]}</button>
+				<div class="button col-12 col-md-6 col-lg-5 my-2">
+					<button class="classmate-choice btn btn-primary p-4 px-4">${classmateAlternativesNames[i]}</button>
 				</div>
 				`;
 				

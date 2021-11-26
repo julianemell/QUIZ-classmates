@@ -1,27 +1,14 @@
 body {
-	background-color: #f3e0c8;
+	background-color: #9fd660;
 	color: #000000;
-	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, monospace;
-	font-weight: 400;
 	margin: 0;
+	margin-bottom: 50px;
+	font-family: 'Patrick Hand', cursive;
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-weight: 600;
+	font-family: 'Luckiest Guy', cursive;
 }
-
-.jumbotron {
-	background-color: #f5ff67;
-	color: #000000;
-}
-
-.photos > div {
-	margin-bottom: 2rem;
-}
-
-/* a.photo {
-	display: inline-block;
-} */
 
 /* Header */
 header {
@@ -40,12 +27,8 @@ main {
 	justify-content: center;
 	text-align: center;
 	align-items: center;
+	
 }
-
-/* .img-fluid {
-	width: 300px;
-	height: auto;
-} */
 
 .quiz-container {
 	display: flex;
@@ -66,14 +49,21 @@ main {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	/* flex-direction: column; */
 
-	background-color: beige;
+	background-color: #71aa2f;
 	border: none;
 	color: black;
 
-	width: 50%;
+	width: 100%;
 	height: auto;
+}
+
+.classmate-choice:hover {
+	background-color: #000000;
+	color: #71aa2f;
+	/* font-family: 'Luckiest Guy', cursive;
+	font-size: 1.2rem; */
+	box-sizing: border-box;
 }
 
 .button {
@@ -81,4 +71,15 @@ main {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 20px;
+	text-align: center;
+	margin-top: 10vh;
+	font-family: 'Luckiest Guy', cursive;
+
 }
