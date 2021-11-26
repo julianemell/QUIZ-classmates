@@ -27,7 +27,6 @@ main {
 	justify-content: center;
 	text-align: center;
 	align-items: center;
-	
 }
 
 .quiz-container {
@@ -35,7 +34,6 @@ main {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	
 }
 
 .quizform {
@@ -61,9 +59,6 @@ main {
 .classmate-choice:hover {
 	background-color: #000000;
 	color: #71aa2f;
-	/* font-family: 'Luckiest Guy', cursive;
-	font-size: 1.2rem; */
-	box-sizing: border-box;
 }
 
 .button {
@@ -73,6 +68,8 @@ main {
 	text-align: center;
 }
 
+/* Footer */
+
 .footer {
 	position: fixed;
 	bottom: 0;
@@ -81,5 +78,4 @@ main {
 	text-align: center;
 	margin-top: 10vh;
 	font-family: 'Luckiest Guy', cursive;
-
 }

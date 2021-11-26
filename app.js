@@ -221,6 +221,7 @@ let userResult = document.querySelector('.user-result');
 const answerClick = () => {
 	let answerEl = document.querySelectorAll('.classmate-choice');
 	
+	//lägg till click event
 	answerEl.forEach(answer => {
 		answer.addEventListener('click', e => {
 
@@ -228,7 +229,6 @@ const answerClick = () => {
 			form.innerHTML = '';
 			
 			let answer = e.target.innerText;
-			//console.log(answer);
 			
 			if (answer === correctClassmateName) {
 				score += 10;
@@ -239,7 +239,7 @@ const answerClick = () => {
 			}
 			userResult.innerText = `${score}%`;
 
-			
+			//10 frågor
 			if (questionNum === 10) {
 				endOfGame();
 			}
@@ -262,6 +262,7 @@ gameResult.addEventListener('click', () => {
 	resultShow.classList.add('d-none');
 	quizQuestions.classList.remove('d-none');
 
+	//töm
 	form.innerHTML = '';
 	questionNum = 0;
 	score = 0;
